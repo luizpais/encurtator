@@ -1,0 +1,32 @@
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+
+import java.net.URI;
+
+@Path("/u")
+public class UrlClickController {
+
+    @Inject
+    UrlShortenerService service;
+
+    @GET
+    @Path("/{shortCode}")
+    public Response redirect(@PathParam("shortCode") String shortCode, @Context HttpHeaders headers) {
+        String ip = headers.getHeaderString("X-Forwarded-For");
+        String userAgent = headers.getHeaderString("User-Agent");
+        URI target = service.handleRedirect(shortCode, ip, userAgent);
+        return Response.status(302).location(target).build();
+    }
+
+    @POST
+    @Path("/shorten")
+    @Consumes("application/json")
+    public Response shortenUrl(@RequestBody(ref = "originalUrl") UrlMappingDTO originalUrl) {
+        String shortCode = service.shortenUrl(originalUrl);
+        return Response.ok("{\"shortCode\":\"" + shortCode + "\"}").build();
+    }
+}
