@@ -1,15 +1,18 @@
+package com.luizpais.encurtator.model;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 
-// UrlMapping.java (PanacheEntity)
+// com.luizpais.encurtator.model.UrlMapping.java (PanacheEntity)
 @Entity
 public class UrlMapping extends PanacheEntity {
 
     public String originalUrl;
     public String shortCode;
+
+    @Column(name = "campaign_id")
     public String campaignId;
     public int clickCount;
     public Instant createdAt;

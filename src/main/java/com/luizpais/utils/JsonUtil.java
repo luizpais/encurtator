@@ -1,3 +1,5 @@
+package com.luizpais.utils;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtil {

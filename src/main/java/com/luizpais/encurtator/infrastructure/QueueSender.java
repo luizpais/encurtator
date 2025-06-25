@@ -1,6 +1,7 @@
+package com.luizpais.encurtator.infrastructure;
 
 
-
+import com.luizpais.utils.JsonUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 

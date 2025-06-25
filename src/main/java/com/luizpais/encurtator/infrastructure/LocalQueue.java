@@ -1,3 +1,5 @@
+package com.luizpais.encurtator.infrastructure;
+
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.LinkedList;
@@ -22,7 +24,7 @@ public class LocalQueue {
     public String dequeue() {
         String message = queue.poll();
         if (message == null) {
-            System.out.println("Queue is empty.");
+            return null;
         } else {
             System.out.println("Message retrieved from the queue: " + message);
         }

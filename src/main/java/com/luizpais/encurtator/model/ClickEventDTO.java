@@ -1,6 +1,8 @@
+package com.luizpais.encurtator.model;
+
 import java.time.Instant;
 
-// ClickEventDTO.java
+// com.luizpais.encurtator.model.ClickEventDTO.java
 public class ClickEventDTO {
     public String shortCode;
     public String campaignId;

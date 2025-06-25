@@ -8,9 +8,9 @@
 //public class AnalyticsEventPublisher {
 //    @Inject
 //    @Channel("click-events")
-//    Emitter<ClickEventDTO> emitter;
+//    Emitter<com.luizpais.encurtator.model.ClickEventDTO> emitter;
 //
-//    public void publish(ClickEventDTO event) {
+//    public void publish(com.luizpais.encurtator.model.ClickEventDTO event) {
 //        emitter.send(event);
 //    }
 //}

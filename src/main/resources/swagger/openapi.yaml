@@ -1,0 +1,58 @@
+openapi: 3.0.1
+info:
+  title: Api do Ecncurtador
+  description: Api do encurtador
+  version: "1.0"
+servers:
+  - url: /
+paths:
+  /shorten:
+    post:
+      summary: Shorten a URL
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/ShortenUrlRequest'
+        required: true
+      responses:
+        "200":
+          description: URL shortened successfully
+          content: {}
+      x-backend:
+        type: HTTP
+        url: http://10.0.0.187:8080/u/shorten
+      x-codegen-request-body-name: body
+  /u/{shortCode}:
+    get:
+      tags:
+        - Url Click Controller
+      summary: Redirect
+      parameters:
+        - name: shortCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content: {}
+      x-backend:
+        type: HTTP
+        url: "http://10.0.0.187:8080/u/{shortCode}"
+components:
+  schemas:
+    ShortenUrlRequest:
+      type: object
+      properties:
+        originalUrl:
+          type: string
+          format: uri
+          example: https://example.com
+        shortCode:
+          type: string
+          example: my-code
+        campaignId:
+          type: string
+          example: Campaign A

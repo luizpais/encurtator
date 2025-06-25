@@ -1,8 +1,11 @@
+package com.luizpais.encurtator.repository;
+
+import com.luizpais.encurtator.model.UrlMapping;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
-// UrlRepository.java
+// com.luizpais.encurtator.repository.UrlRepository.java
 @ApplicationScoped
 public class UrlRepository implements PanacheRepository<UrlMapping> {
 

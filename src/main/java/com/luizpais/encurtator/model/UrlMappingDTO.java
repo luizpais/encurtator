@@ -1,6 +1,8 @@
+package com.luizpais.encurtator.model;
+
 import java.time.Instant;
 
-// UrlMappingDTO.java
+// com.luizpais.encurtator.model.UrlMappingDTO.java
 public class UrlMappingDTO {
     private String originalUrl;
     private String shortCode;
