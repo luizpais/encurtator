@@ -1,6 +1,7 @@
 package com.luizpais.encurtator.model;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 // com.luizpais.encurtator.model.UrlMappingDTO.java
 public class UrlMappingDTO {
@@ -8,7 +9,7 @@ public class UrlMappingDTO {
     private String shortCode;
     private String campaignId;
     private int clickCount;
-    private Instant createdAt;
+    private LocalDate createdAt;
 
     // Getters and Setters
     public String getOriginalUrl() {
@@ -43,11 +44,11 @@ public class UrlMappingDTO {
         this.clickCount = clickCount;
     }
 
-    public Instant getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 }

@@ -1,11 +1,18 @@
 package com.luizpais.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class JsonUtil {
-    public static String toJson(Object object) {
+
+    @Inject
+    ObjectMapper objectMapper;
+
+    public String toJson(Object object) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
+
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {
             throw new RuntimeException("Failed to convert object to JSON", e);

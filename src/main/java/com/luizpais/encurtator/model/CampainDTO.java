@@ -1,4 +1,4 @@
-package com.luizpais.campain.model;
+package com.luizpais.encurtator.model;
 
 public class CampainDTO {
     private Long id;

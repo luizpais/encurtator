@@ -1,27 +1,36 @@
 package com.luizpais.encurtator.services;
 
+import com.luizpais.encurtator.infrastructure.CampainerClient;
+import com.luizpais.encurtator.infrastructure.KafkaSender;
 import com.luizpais.encurtator.infrastructure.QueueSender;
 import com.luizpais.encurtator.model.ClickEventDTO;
 import com.luizpais.encurtator.model.UrlMapping;
 import com.luizpais.encurtator.model.UrlMappingDTO;
 import com.luizpais.encurtator.repository.UrlRepository;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.net.URI;
 import java.security.SecureRandom;
+import org.jboss.logging.Logger;
 
 // com.luizpais.encurtator.services.UrlShortenerService.java
 @ApplicationScoped
 public class UrlShortenerService {
 
+    private static final Logger LOG = Logger.getLogger(UrlShortenerService.class);
 
     @Inject
     UrlRepository repository;
 
     @Inject
-    QueueSender queueSender;
+    KafkaSender queueSender;
+
+    @RestClient
+    CampainerClient campainerClient;
 
     @Transactional
     public URI handleRedirect(String shortCode, String ip, String userAgent) {
@@ -31,7 +40,7 @@ public class UrlShortenerService {
 
         ClickEventDTO event = new ClickEventDTO(mapping, ip, userAgent);
         queueSender.sendMessage(event);
-
+        LOG.infof("Redirecting to original URL: %s", mapping.getOriginalUrl());
         return URI.create(mapping.getOriginalUrl());
     }
 
@@ -79,7 +88,14 @@ public class UrlShortenerService {
         return shortCode.reverse().toString();
     }
 
+    @Transactional
     public String shortenUrlWithCampaign(UrlMappingDTO campaignUrl) {
+
+        // Check if the campaign exists
+        if (campaignUrl.getCampaignId() == null || campainerClient.getById(campaignUrl.getCampaignId()) == null) {
+            throw new IllegalArgumentException("Invalid campaign ID: " + campaignUrl.getCampaignId());
+        }
+
         UrlMapping mapping = new UrlMapping(campaignUrl);
         mapping.persist();
         // Generate short code using the entity's ID

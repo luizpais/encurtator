@@ -30,15 +30,15 @@ public class UrlClickController {
     @POST
     @Path("/shorten")
     @Produces("application/json")
-    public Response shortenUrl(@RequestBody(ref = "originalUrl") UrlMappingDTO originalUrl) {
+    public Response shortenUrl(UrlMappingDTO originalUrl) {
         String shortCode = service.shortenUrl(originalUrl);
         return Response.ok("{\"shortCode\":\"" + shortCode + "\"}").build();
     }
 
-  // @POST
+    @POST
     @Path("/shorten/campaign")
     @Produces("application/json")
-    public Response shortenUrlWithCampaign(@RequestBody(ref = "campaignUrl") UrlMappingDTO campaignUrl) {
+    public Response shortenUrlWithCampaign(UrlMappingDTO campaignUrl) {
         String shortCode = service.shortenUrlWithCampaign(campaignUrl);
         return Response.ok("{\"shortCode\":\"" + shortCode + "\"}").build();
     }
