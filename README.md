@@ -2,6 +2,13 @@
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
+I use this project to test Datadog capabilities and integrations with Quarkus. 
+To test with datadog, sending Trace info, initiate the program using the following command line: 
+
+java -javaagent:"dd-java-agent.jar" -jar ./target/encurtator-1.0.1-runner.jar
+
+This project integrates with Compainer project that is also sendiing trace data do Datadog.
+
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
 ## Running the application in dev mode
