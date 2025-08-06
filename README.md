@@ -5,6 +5,12 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 I use this project to test Datadog capabilities and integrations with Quarkus. 
 To test with datadog, sending Trace info, initiate the program using the following command line: 
 
+At Powershell prompt define the environment variables:
+$env:DD_SERVICE="encurtator"
+$env:DD_ENV="dev"
+$env:DD_VERSION="1.0.0"
+
+```shell
 java -javaagent:"dd-java-agent.jar" -jar ./target/encurtator-1.0.1-runner.jar
 
 This project integrates with Compainer project that is also sendiing trace data do Datadog.
